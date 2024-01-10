@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default function handler(req, res) {
-  const {method} = req
+  const {method, body} = req
 
   switch(method){
     case 'GET':
@@ -16,7 +16,9 @@ export default function handler(req, res) {
       res.status(200).json(initialTemplate)
       break
     case 'PUT':
-      res.status(200).json(req.body)
+      const requestBody = JSON.parse(body)
+      res.setHeader('Content-Type', 'application/json')
+      res.status(200).json(requestBody)
       break
     default:
       res.setHeader('Allow', ['GET', 'PUT'])
